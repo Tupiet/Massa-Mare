@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Massa mare</string>
+    <string name="quantitat_grams">Quants grams de pa vols?</string>
+    <string name="calcular">Calcular!</string>
+    <string name="titolRecepta">RECEPTA:</string>
+    <string name="farinaTitle">Farina:</string>
+    <string name="massa_mareTitle">Massa mare:</string>
+    <string name="aiguaTitle">Aigua:</string>
+    <string name="salTitle">Sal:</string>
 </resources>

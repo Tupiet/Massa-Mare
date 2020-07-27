@@ -14,7 +14,10 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.button)
         val input: EditText = findViewById(R.id.textView)
-        val output: TextView = findViewById(R.id.textView2)
+        val farinaOutput: TextView = findViewById(R.id.farinaOutput)
+        val aiguaOutput: TextView = findViewById(R.id.aiguaOutput)
+        val massaMareOutput: TextView = findViewById(R.id.massaMareOutput)
+        val salOutput: TextView = findViewById(R.id.salOutput)
 
         button.setOnClickListener {
             val pesDesitjat = Integer.parseInt(input.text.toString())
@@ -33,7 +36,10 @@ class MainActivity : AppCompatActivity() {
             val farinaFinal = farinaNecessariaTotal - farinaDinsMassaMare
             val aiguaFinal = aiguaNecessariaTotal - aiguaDinsMassaMare
 
-            output.text = "${farinaFinal} grams de farina, ${aiguaFinal} grams d'aigua, ${salNecessariaTotal} grams de sal, ${massaMareNecessariaTotal} grams de massa mare."
+            farinaOutput.text = farinaFinal.toString()
+            aiguaOutput.text = aiguaFinal.toString()
+            massaMareOutput.text = massaMareNecessariaTotal.toString()
+            salOutput.text = salNecessariaTotal.toString()
         }
     }
 }
