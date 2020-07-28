@@ -1,10 +1,13 @@
 package com.example.massamare
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,11 +16,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val button: Button = findViewById(R.id.button)
+        val config: Button = findViewById(R.id.button3)
+
         val input: EditText = findViewById(R.id.textView)
         val farinaOutput: TextView = findViewById(R.id.farinaOutput)
         val aiguaOutput: TextView = findViewById(R.id.aiguaOutput)
         val massaMareOutput: TextView = findViewById(R.id.massaMareOutput)
         val salOutput: TextView = findViewById(R.id.salOutput)
+
+        val pref = getPreferences(Context.MODE_PRIVATE)
+        var pes = pref.getInt("PES", 0)
+        textView.setText(pes.toString())
 
         button.setOnClickListener {
             val pesDesitjat = Integer.parseInt(input.text.toString())
@@ -40,6 +49,22 @@ class MainActivity : AppCompatActivity() {
             aiguaOutput.text = aiguaFinal.toString()
             massaMareOutput.text = massaMareNecessariaTotal.toString()
             salOutput.text = salNecessariaTotal.toString()
+
+            onSave()
         }
+
+        config.setOnClickListener {
+            val intent = Intent(this, ConfigurationActivity::class.java).apply {
+            }
+
+            startActivity(intent)
+        }
+    }
+
+    fun onSave() {
+        val pref = getPreferences(Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("PES", textView.text.toString().toInt())
+        editor.commit()
     }
 }

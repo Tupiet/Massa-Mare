@@ -7,4 +7,9 @@
     <string name="massa_mareTitle">Massa mare:</string>
     <string name="aiguaTitle">Aigua:</string>
     <string name="salTitle">Sal:</string>
+    <string name="nombre_de_grams">Nombre de grams</string>
+    <string name="configuracio">Configuració</string>
+    <string name="farina_a_la_massa_mare">Farina a la massa mare:</string>
+    <string name="aigua_a_la_massa_mare">Aigua a la massa mare</string>
+    <string name="guardar">Guardar</string>
 </resources>
