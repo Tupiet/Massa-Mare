@@ -1,6 +1,7 @@
 package com.example.massamare
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -30,12 +31,28 @@ class ConfigurationActivity : AppCompatActivity() {
     fun onSave(view: View) {
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putFloat("PERCENTATGE_AIGUA", aiguaConfig.text.toString().toFloat())
-        editor.putFloat("PERCENTATGE_SAL", salConfig.text.toString().toFloat())
-        editor.putFloat("PERCENTATGE_MASSA_MARE", massaMareConfig.text.toString().toFloat())
-        editor.putFloat("PERCENTATGE_FARINA_MASSA_MARE", farinaMassaMareConfig.text.toString().toFloat())
-        editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", aiguaMassaMareConfig.text.toString().toFloat())
+
+        val percentatgeAigua = aiguaConfig.text.toString().toFloat()
+        val percentatgeSal = salConfig.text.toString().toFloat()
+        val percentatgeMassaMare = massaMareConfig.text.toString().toFloat()
+        val percentatgeFarinaMassaMare = farinaMassaMareConfig.text.toString().toFloat()
+        val percentatgeAiguaMassaMare = aiguaMassaMareConfig.text.toString().toFloat()
+
+        editor.putFloat("PERCENTATGE_AIGUA", percentatgeAigua)
+        editor.putFloat("PERCENTATGE_SAL", percentatgeSal)
+        editor.putFloat("PERCENTATGE_MASSA_MARE", percentatgeMassaMare)
+        editor.putFloat("PERCENTATGE_FARINA_MASSA_MARE", percentatgeFarinaMassaMare)
+        editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", percentatgeAiguaMassaMare)
         editor.commit()
+
+        var intent = Intent(this@ConfigurationActivity,MainActivity::class.java)
+        intent.putExtra("percentatgeAigua", percentatgeAigua)
+        intent.putExtra("percentatgeSal", percentatgeSal)
+        intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
+        intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
+        intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
+        startActivity(intent)
+
     }
 
 
