@@ -3,9 +3,13 @@ package com.example.massamare
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,7 +33,17 @@ class MainActivity : AppCompatActivity() {
         textView.setText(pes.toString())
 
         fun calculate() {
-            val pesDesitjat = Integer.parseInt(input.text.toString())
+            var pesDesitjat = 0
+            if (input.text.toString() == "") {
+                pesDesitjat = 0
+                var toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.TOP, 0, 10)
+                toast.show()
+
+            } else {
+                pesDesitjat = Integer.parseInt(input.text.toString())
+            }
+
 
             // region OBTENIM LES DADES DE LA PÀGINA DE CONFIGURACIÓ
             val aiguaRebuda = intent.getFloatExtra("percentatgeAigua", 60F)
@@ -92,8 +106,13 @@ class MainActivity : AppCompatActivity() {
         calculate()
 
 
+        fun View.hideKeyboard() {
+            val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(windowToken, 0)
+        }
 
         button.setOnClickListener {
+            it.hideKeyboard()
             calculate()
         }
 
@@ -104,6 +123,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+
     }
 
 

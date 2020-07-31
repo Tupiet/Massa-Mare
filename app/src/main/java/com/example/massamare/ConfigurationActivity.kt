@@ -33,31 +33,39 @@ class ConfigurationActivity : AppCompatActivity() {
     fun onSave(view: View) {
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
+        // Verifica si realment té algun número escrit o no.
+        if (aiguaConfig.text.toString() == "" || salConfig.text.toString() == "" ||
+            massaMareConfig.text.toString() == "" || farinaMassaMareConfig.text.toString() == "" ||
+            aiguaMassaMareConfig.text.toString() == "") {
+            val toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.TOP, 0, 10)
+            toast.show()
+        } else {
+            val percentatgeAigua = aiguaConfig.text.toString().toFloat()
+            val percentatgeSal = salConfig.text.toString().toFloat()
+            val percentatgeMassaMare = massaMareConfig.text.toString().toFloat()
+            val percentatgeFarinaMassaMare = farinaMassaMareConfig.text.toString().toFloat()
+            val percentatgeAiguaMassaMare = aiguaMassaMareConfig.text.toString().toFloat()
 
-        val percentatgeAigua = aiguaConfig.text.toString().toFloat()
-        val percentatgeSal = salConfig.text.toString().toFloat()
-        val percentatgeMassaMare = massaMareConfig.text.toString().toFloat()
-        val percentatgeFarinaMassaMare = farinaMassaMareConfig.text.toString().toFloat()
-        val percentatgeAiguaMassaMare = aiguaMassaMareConfig.text.toString().toFloat()
+            editor.putFloat("PERCENTATGE_AIGUA", percentatgeAigua)
+            editor.putFloat("PERCENTATGE_SAL", percentatgeSal)
+            editor.putFloat("PERCENTATGE_MASSA_MARE", percentatgeMassaMare)
+            editor.putFloat("PERCENTATGE_FARINA_MASSA_MARE", percentatgeFarinaMassaMare)
+            editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", percentatgeAiguaMassaMare)
+            editor.commit()
 
-        editor.putFloat("PERCENTATGE_AIGUA", percentatgeAigua)
-        editor.putFloat("PERCENTATGE_SAL", percentatgeSal)
-        editor.putFloat("PERCENTATGE_MASSA_MARE", percentatgeMassaMare)
-        editor.putFloat("PERCENTATGE_FARINA_MASSA_MARE", percentatgeFarinaMassaMare)
-        editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", percentatgeAiguaMassaMare)
-        editor.commit()
-
-        var intent = Intent(this@ConfigurationActivity,MainActivity::class.java)
-        intent.putExtra("percentatgeAigua", percentatgeAigua)
-        intent.putExtra("percentatgeSal", percentatgeSal)
-        intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
-        intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
-        intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
-        var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.TOP, 0, 10)
-        toast.show()
-        startActivity(intent)
-        finish()
+            var intent = Intent(this@ConfigurationActivity,MainActivity::class.java)
+            intent.putExtra("percentatgeAigua", percentatgeAigua)
+            intent.putExtra("percentatgeSal", percentatgeSal)
+            intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
+            intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
+            intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
+            var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.TOP, 0, 10)
+            toast.show()
+            startActivity(intent)
+            finish()
+        }
 
     }
 
