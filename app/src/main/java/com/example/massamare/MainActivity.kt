@@ -28,42 +28,39 @@ class MainActivity : AppCompatActivity() {
         val pes = pref.getInt("PES", 0)
         textView.setText(pes.toString())
 
-
-
-
-
-
-        button.setOnClickListener {
+        fun calculate() {
             val pesDesitjat = Integer.parseInt(input.text.toString())
 
             // region OBTENIM LES DADES DE LA PÀGINA DE CONFIGURACIÓ
-            val aiguaRebuda = intent.getFloatExtra("percentatgeAigua", 0.6F)
-            val salRebuda = intent.getFloatExtra("percentatgeSal", 0.02F)
-            val massaMareRebuda = intent.getFloatExtra("percentatgeMassaMare", 0.2F)
-            val farinaMassaMareRebuda = intent.getFloatExtra("percentatgeFarinaMassaMare", 0.5F)
-            val aiguaMassaMareRebuda = intent.getFloatExtra("percentatgeAiguaMassaMare", 0.5F)
+            val aiguaRebuda = intent.getFloatExtra("percentatgeAigua", 60F)
+            val salRebuda = intent.getFloatExtra("percentatgeSal", 2F)
+            val massaMareRebuda = intent.getFloatExtra("percentatgeMassaMare", 20F)
+            val farinaMassaMareRebuda = intent.getFloatExtra("percentatgeFarinaMassaMare", 50F)
+            val aiguaMassaMareRebuda = intent.getFloatExtra("percentatgeAiguaMassaMare", 50F)
             // endregion
-
-            var aiguaGuardada = pref.getFloat("AIGUA_GUARDADA", aiguaRebuda)
-            var salGuardada = pref.getFloat("SAL_GUARDADA", aiguaRebuda)
-            var massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", aiguaRebuda)
-            var farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", aiguaRebuda)
-            var aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaRebuda)
-
             val editor = pref.edit()
-            editor.putInt("PES", pesDesitjat)
-            editor.putFloat("AIGUA_GUARDADA", aiguaRebuda)
-            editor.putFloat("SAL_GUARDADA", salRebuda)
-            editor.putFloat("MASSA_MARE_GUARDADA", massaMareRebuda)
-            editor.putFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareRebuda)
-            editor.putFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareRebuda)
-            editor.commit()
 
-            aiguaGuardada = pref.getFloat("AIGUA_GUARDADA", aiguaRebuda)
-            salGuardada = pref.getFloat("SAL_GUARDADA", aiguaRebuda)
-            massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", aiguaRebuda)
-            farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", aiguaRebuda)
-            aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaRebuda)
+            val aiguaReduida = aiguaRebuda / 100
+            val salReduida = salRebuda / 100
+            val massaMareReduida = massaMareRebuda / 100
+            val farinaMassaMareReduida = farinaMassaMareRebuda / 100
+            val aiguaMassaMareReduida = aiguaMassaMareRebuda / 100
+
+
+            editor.putInt("PES", pesDesitjat)
+            editor.putFloat("AIGUA_GUARDADA", aiguaReduida)
+            editor.putFloat("SAL_GUARDADA", salReduida)
+            editor.putFloat("MASSA_MARE_GUARDADA", massaMareReduida)
+            editor.putFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareReduida)
+            editor.putFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareReduida)
+
+            editor.commit()
+            val aiguaGuardada = pref.getFloat("AIGUA_GUARDADA", aiguaReduida)
+            val salGuardada = pref.getFloat("SAL_GUARDADA", aiguaReduida)
+            val massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", aiguaReduida)
+            val farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", aiguaReduida)
+            val aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaReduida)
+
 
             val tantPerCentMassaMare = massaMareGuardada
             val tantPerCentAigua = aiguaGuardada
@@ -88,6 +85,16 @@ class MainActivity : AppCompatActivity() {
             salOutput.text = salNecessariaTotal.toString()
 
 
+
+            editor.commit()
+        }
+
+        calculate()
+
+
+
+        button.setOnClickListener {
+            calculate()
         }
 
         config.setOnClickListener {
@@ -95,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             startActivity(intent)
+            finish()
         }
     }
 

@@ -3,7 +3,9 @@ package com.example.massamare
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_configuration.*
 
@@ -15,17 +17,17 @@ class ConfigurationActivity : AppCompatActivity() {
 
         val pref = getPreferences(Context.MODE_PRIVATE)
 
-        val percentatgeAigua = pref.getFloat("PERCENTATGE_AIGUA", 0.6F)
-        val percentatgeSal = pref.getFloat("PERCENTATGE_SAL", 0.02F)
-        val percentatgeMassaMare = pref.getFloat("PERCENTATGE_MASSA_MARE", 0.2F)
-        val percentatgeFarinaMassaMare = pref.getFloat("PERCENTATGE_FARINA_MASSA_MARE", 0.5F)
-        val percentatgeAiguaMassaMare = pref.getFloat("PERCENTATGE_AIGUA_MASSA_MARE", 0.5F)
+        val percentatgeAigua = pref.getFloat("PERCENTATGE_AIGUA", 60F)
+        val percentatgeSal = pref.getFloat("PERCENTATGE_SAL", 2F)
+        val percentatgeMassaMare = pref.getFloat("PERCENTATGE_MASSA_MARE", 20F)
+        val percentatgeFarinaMassaMare = pref.getFloat("PERCENTATGE_FARINA_MASSA_MARE", 50F)
+        val percentatgeAiguaMassaMare = pref.getFloat("PERCENTATGE_AIGUA_MASSA_MARE", 50F)
 
-        aiguaConfig.setText(percentatgeAigua.toString())
-        salConfig.setText(percentatgeSal.toString())
-        massaMareConfig.setText(percentatgeMassaMare.toString())
-        farinaMassaMareConfig.setText(percentatgeFarinaMassaMare.toString())
-        aiguaMassaMareConfig.setText(percentatgeAiguaMassaMare.toString())
+        aiguaConfig.setText(percentatgeAigua.toInt().toString())
+        salConfig.setText(percentatgeSal.toInt().toString())
+        massaMareConfig.setText(percentatgeMassaMare.toInt().toString())
+        farinaMassaMareConfig.setText(percentatgeFarinaMassaMare.toInt().toString())
+        aiguaMassaMareConfig.setText(percentatgeAiguaMassaMare.toInt().toString())
     }
 
     fun onSave(view: View) {
@@ -51,7 +53,11 @@ class ConfigurationActivity : AppCompatActivity() {
         intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
         intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
         intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
+        var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.TOP, 0, 10)
+        toast.show()
         startActivity(intent)
+        finish()
 
     }
 
