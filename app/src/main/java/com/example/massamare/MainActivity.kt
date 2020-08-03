@@ -98,8 +98,6 @@ class MainActivity : AppCompatActivity() {
             massaMareOutput.text = massaMareNecessariaTotal.toString()
             salOutput.text = salNecessariaTotal.toString()
 
-
-
             editor.commit()
         }
 
@@ -119,7 +117,6 @@ class MainActivity : AppCompatActivity() {
         config.setOnClickListener {
             val intent = Intent(this, ConfigurationActivity::class.java).apply {
             }
-
             startActivity(intent)
             finish()
         }

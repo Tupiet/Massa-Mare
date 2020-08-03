@@ -54,7 +54,7 @@ class ConfigurationActivity : AppCompatActivity() {
             editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", percentatgeAiguaMassaMare)
             editor.commit()
 
-            var intent = Intent(this@ConfigurationActivity,MainActivity::class.java)
+            var intent = Intent(this,MainActivity::class.java)
             intent.putExtra("percentatgeAigua", percentatgeAigua)
             intent.putExtra("percentatgeSal", percentatgeSal)
             intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
