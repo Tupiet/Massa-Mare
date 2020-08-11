@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,14 +117,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         config.setOnClickListener {
-            val intent = Intent(this, ConfigurationActivity::class.java).apply {
-            }
+            val intent = Intent(this, ConfigurationActivity::class.java)
             startActivity(intent)
             finish()
         }
 
+        suma.setOnClickListener{
+            val original: EditText = findViewById(R.id.textView)
+            var nouPes = Integer.parseInt(original.text.toString())
+            nouPes += 25
+            original.setText(nouPes.toString())
+            calculate()
+        }
 
+        resta.setOnClickListener{
+            val original: EditText = findViewById(R.id.textView)
+            var nouPes = Integer.parseInt(original.text.toString())
+            nouPes -= 25
+            original.setText(nouPes.toString())
+            calculate()
+        }
     }
-
-
 }
