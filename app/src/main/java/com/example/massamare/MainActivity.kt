@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // This region is what makes possible the Remote Config
+        // Remote Config (Firebase) is used to detect updates
+        // and also to get variables from the cloud.
         // region REMOTE CONFIG
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 5
@@ -67,6 +70,9 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        // endregion
+
+        // region
         // endregion
 
         val button: Button = this.findViewById(R.id.button)
