@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             val aiguaRebuda = intent.getFloatExtra("percentatgeAigua", 60F)
             val salRebuda = intent.getFloatExtra("percentatgeSal", 2F)
             val massaMareRebuda = intent.getFloatExtra("percentatgeMassaMare", 20F)
+            val perdutRebut = intent.getFloatExtra("percentatgePerdua", 17F)
             val farinaMassaMareRebuda = intent.getFloatExtra("percentatgeFarinaMassaMare", 50F)
             val aiguaMassaMareRebuda = intent.getFloatExtra("percentatgeAiguaMassaMare", 50F)
             // endregion
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity() {
             val aiguaReduida = aiguaRebuda / 100
             val salReduida = salRebuda / 100
             val massaMareReduida = massaMareRebuda / 100
+            val perdutReduida = 1 - perdutRebut / 100
             val farinaMassaMareReduida = farinaMassaMareRebuda / 100
             val aiguaMassaMareReduida = aiguaMassaMareRebuda / 100
 
@@ -121,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             editor.putFloat("AIGUA_GUARDADA", aiguaReduida)
             editor.putFloat("SAL_GUARDADA", salReduida)
             editor.putFloat("MASSA_MARE_GUARDADA", massaMareReduida)
+            editor.putFloat("PERDUT_GUARDADA", perdutReduida)
             editor.putFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareReduida)
             editor.putFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareReduida)
 
@@ -128,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             val aiguaGuardada = pref.getFloat("AIGUA_GUARDADA", aiguaReduida)
             val salGuardada = pref.getFloat("SAL_GUARDADA", aiguaReduida)
             val massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", aiguaReduida)
+            val perdutGuardada = pref.getFloat("PERDUT_GUARDADA", perdutReduida)
             val farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", aiguaReduida)
             val aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaReduida)
 
@@ -139,7 +143,9 @@ class MainActivity : AppCompatActivity() {
             val tantPerCentFarinaMassaMare = farinaMassaMareGuardada
             val tantPerCentAiguaMassaMare = aiguaMassaMareGuardada
 
-            val farinaNecessariaTotal = Math.round(1 / tantPerCentSuma * pesDesitjat)
+            val pesReal = pesDesitjat / perdutGuardada
+
+            val farinaNecessariaTotal = Math.round(1 / tantPerCentSuma * pesReal)
             val aiguaNecessariaTotal = Math.round(farinaNecessariaTotal * tantPerCentAigua)
             val salNecessariaTotal = Math.round(farinaNecessariaTotal * tantPerCentSal)
             val massaMareNecessariaTotal = Math.round(farinaNecessariaTotal * tantPerCentMassaMare)

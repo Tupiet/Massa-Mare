@@ -20,12 +20,14 @@ class ConfigurationActivity : AppCompatActivity() {
         val percentatgeAigua = pref.getFloat("PERCENTATGE_AIGUA", 60F)
         val percentatgeSal = pref.getFloat("PERCENTATGE_SAL", 2F)
         val percentatgeMassaMare = pref.getFloat("PERCENTATGE_MASSA_MARE", 20F)
+        val percentatgePerdua = pref.getFloat("PERCENTATGE_PERDUA", 17F)
         val percentatgeFarinaMassaMare = pref.getFloat("PERCENTATGE_FARINA_MASSA_MARE", 50F)
         val percentatgeAiguaMassaMare = pref.getFloat("PERCENTATGE_AIGUA_MASSA_MARE", 50F)
 
         aiguaConfig.setText(percentatgeAigua.toInt().toString())
         salConfig.setText(percentatgeSal.toInt().toString())
         massaMareConfig.setText(percentatgeMassaMare.toInt().toString())
+        perduaConfig.setText(percentatgePerdua.toInt().toString())
         farinaMassaMareConfig.setText(percentatgeFarinaMassaMare.toInt().toString())
         aiguaMassaMareConfig.setText(percentatgeAiguaMassaMare.toInt().toString())
     }
@@ -36,7 +38,7 @@ class ConfigurationActivity : AppCompatActivity() {
         // Verifica si realment té algun número escrit o no.
         if (aiguaConfig.text.toString() == "" || salConfig.text.toString() == "" ||
             massaMareConfig.text.toString() == "" || farinaMassaMareConfig.text.toString() == "" ||
-            aiguaMassaMareConfig.text.toString() == "") {
+            aiguaMassaMareConfig.text.toString() == "" || perduaConfig.text.toString() == "") {
             val toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.TOP, 0, 10)
             toast.show()
@@ -44,12 +46,14 @@ class ConfigurationActivity : AppCompatActivity() {
             val percentatgeAigua = aiguaConfig.text.toString().toFloat()
             val percentatgeSal = salConfig.text.toString().toFloat()
             val percentatgeMassaMare = massaMareConfig.text.toString().toFloat()
+            val percentatgePerdua = perduaConfig.text.toString().toFloat()
             val percentatgeFarinaMassaMare = farinaMassaMareConfig.text.toString().toFloat()
             val percentatgeAiguaMassaMare = aiguaMassaMareConfig.text.toString().toFloat()
 
             editor.putFloat("PERCENTATGE_AIGUA", percentatgeAigua)
             editor.putFloat("PERCENTATGE_SAL", percentatgeSal)
             editor.putFloat("PERCENTATGE_MASSA_MARE", percentatgeMassaMare)
+            editor.putFloat("PERCENTATGE_PERDUA", percentatgePerdua)
             editor.putFloat("PERCENTATGE_FARINA_MASSA_MARE", percentatgeFarinaMassaMare)
             editor.putFloat("PERCENTATGE_AIGUA_MASSA_MARE", percentatgeAiguaMassaMare)
             editor.commit()
@@ -58,6 +62,7 @@ class ConfigurationActivity : AppCompatActivity() {
             intent.putExtra("percentatgeAigua", percentatgeAigua)
             intent.putExtra("percentatgeSal", percentatgeSal)
             intent.putExtra("percentatgeMassaMare", percentatgeMassaMare)
+            intent.putExtra("percentatgePerdua", percentatgePerdua)
             intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
             intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
             var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)

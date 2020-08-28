@@ -83,10 +83,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/salConfig" />
 
             <EditText
+                android:id="@+id/perduaConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="17"
+                android:inputType="number"
+                android:textAlignment="textEnd"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/textView27"
+                app:layout_constraintTop_toBottomOf="@+id/massaMareConfig" />
+
+            <EditText
                 android:id="@+id/farinaMassaMareConfig"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="150dp"
                 android:hint="50"
                 android:inputType="number"
                 android:textAlignment="textEnd"
@@ -140,6 +152,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <TextView
+                android:id="@+id/perduaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/perdua"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,7 +172,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintTop_toBottomOf="@+id/perduaText" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -207,10 +230,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="15dp"
+                android:text="%"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="170dp"
                 android:layout_marginEnd="15dp"
                 android:text="%"
                 android:textSize="20sp"
