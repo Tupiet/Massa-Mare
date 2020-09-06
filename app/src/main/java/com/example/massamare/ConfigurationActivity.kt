@@ -3,7 +3,6 @@ package com.example.massamare
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +39,6 @@ class ConfigurationActivity : AppCompatActivity() {
             massaMareConfig.text.toString() == "" || farinaMassaMareConfig.text.toString() == "" ||
             aiguaMassaMareConfig.text.toString() == "" || perduaConfig.text.toString() == "") {
             val toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.TOP, 0, 10)
             toast.show()
         } else {
             val percentatgeAigua = aiguaConfig.text.toString().toFloat()
@@ -65,8 +63,8 @@ class ConfigurationActivity : AppCompatActivity() {
             intent.putExtra("percentatgePerdua", percentatgePerdua)
             intent.putExtra("percentatgeFarinaMassaMare", percentatgeFarinaMassaMare)
             intent.putExtra("percentatgeAiguaMassaMare", percentatgeAiguaMassaMare)
+            intent.putExtra("intent", true)
             var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.TOP, 0, 10)
             toast.show()
             startActivity(intent)
             finish()

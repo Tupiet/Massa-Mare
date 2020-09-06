@@ -2,20 +2,14 @@ package com.example.massamare
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -25,55 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // This region is what makes possible the Remote Config
-        // Remote Config (Firebase) is used to detect updates
-        // and also to get variables from the cloud.
-        // region REMOTE CONFIG
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 5
-        }
-
-        val firebaseConfig = Firebase.remoteConfig
-        firebaseConfig.setConfigSettingsAsync((configSettings))
-        firebaseConfig.setDefaultsAsync(mapOf("min_version" to BuildConfig.VERSION_NAME))
-        firebaseConfig.setDefaultsAsync(mapOf("update_title" to "¡Nueva actualización!"))
-        firebaseConfig.setDefaultsAsync(mapOf("update_description" to "Deberías actualizar ya, ¡tiene nuevas opciones!"))
-
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val minVersion = Firebase.remoteConfig.getString("min_version")
-                val updateTitle = Firebase.remoteConfig.getString("update_title")
-                val updateDescription = Firebase.remoteConfig.getString("update_description")
-
-                val versionFinal = BuildConfig.VERSION_NAME
-
-                if (versionFinal != minVersion){
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle(updateTitle)
-                    builder.setMessage(updateDescription)
-
-                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                        val url = "https://massamare.tk"
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(url)
-                        startActivity(intent)
-                    }
-
-                    builder.setNeutralButton("Cerrar") { dialog, which ->
-
-                    }
-                    builder.show()
-                }
-
-            }
-
-        }
-
-        // endregion
-
-        // region
-        // endregion
 
         val button: Button = this.findViewById(R.id.button)
         val config: Button = findViewById(R.id.button3)
@@ -93,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             if (input.text.toString() == "") {
                 pesDesitjat = 0
                 var toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.TOP, 0, 10)
                 toast.show()
 
             } else {
@@ -102,38 +46,61 @@ class MainActivity : AppCompatActivity() {
 
 
             // region OBTENIM LES DADES DE LA PÀGINA DE CONFIGURACIÓ
-            val aiguaRebuda = intent.getFloatExtra("percentatgeAigua", 60F)
-            val salRebuda = intent.getFloatExtra("percentatgeSal", 2F)
-            val massaMareRebuda = intent.getFloatExtra("percentatgeMassaMare", 20F)
-            val perdutRebut = intent.getFloatExtra("percentatgePerdua", 17F)
-            val farinaMassaMareRebuda = intent.getFloatExtra("percentatgeFarinaMassaMare", 50F)
-            val aiguaMassaMareRebuda = intent.getFloatExtra("percentatgeAiguaMassaMare", 50F)
-            // endregion
+            var aiguaRebuda = 60F
+            var salRebuda = 2F
+            var massaMareRebuda = 20F
+            var perdutRebut = 17F
+            var farinaMassaMareRebuda = 50F
+            var aiguaMassaMareRebuda = 50F
+            val intentValue = intent.getBooleanExtra("intent", false)
+
+            var aiguaReduida = aiguaRebuda / 100
+            var salReduida = salRebuda / 100
+            var massaMareReduida = massaMareRebuda / 100
+            var perdutReduida = 1 - perdutRebut / 100
+            var farinaMassaMareReduida = farinaMassaMareRebuda / 100
+            var aiguaMassaMareReduida = aiguaMassaMareRebuda / 100
+
             val editor = pref.edit()
 
-            val aiguaReduida = aiguaRebuda / 100
-            val salReduida = salRebuda / 100
-            val massaMareReduida = massaMareRebuda / 100
-            val perdutReduida = 1 - perdutRebut / 100
-            val farinaMassaMareReduida = farinaMassaMareRebuda / 100
-            val aiguaMassaMareReduida = aiguaMassaMareRebuda / 100
-
-
             editor.putInt("PES", pesDesitjat)
-            editor.putFloat("AIGUA_GUARDADA", aiguaReduida)
-            editor.putFloat("SAL_GUARDADA", salReduida)
-            editor.putFloat("MASSA_MARE_GUARDADA", massaMareReduida)
-            editor.putFloat("PERDUT_GUARDADA", perdutReduida)
-            editor.putFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareReduida)
-            editor.putFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareReduida)
 
+            if (intentValue == true) {
+                aiguaRebuda = intent.getFloatExtra("percentatgeAigua", aiguaRebuda)
+                salRebuda = intent.getFloatExtra("percentatgeSal", salRebuda)
+                massaMareRebuda = intent.getFloatExtra("percentatgeMassaMare", massaMareRebuda)
+                perdutRebut = intent.getFloatExtra("percentatgePerdua", perdutRebut)
+                farinaMassaMareRebuda = intent.getFloatExtra("percentatgeFarinaMassaMare", farinaMassaMareRebuda)
+                aiguaMassaMareRebuda = intent.getFloatExtra("percentatgeAiguaMassaMare", aiguaMassaMareRebuda)
+
+                aiguaReduida = aiguaRebuda / 100
+                salReduida = salRebuda / 100
+                massaMareReduida = massaMareRebuda / 100
+                perdutReduida = 1 - perdutRebut / 100
+                farinaMassaMareReduida = farinaMassaMareRebuda / 100
+                aiguaMassaMareReduida = aiguaMassaMareRebuda / 100
+
+
+                editor.putFloat("AIGUA_GUARDADA", aiguaReduida)
+                editor.putFloat("SAL_GUARDADA", salReduida)
+                editor.putFloat("MASSA_MARE_GUARDADA", massaMareReduida)
+                editor.putFloat("PERDUT_GUARDADA", perdutReduida)
+                editor.putFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareReduida)
+                editor.putFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareReduida)
+            }
             editor.commit()
+
+
+
+            // endregion
+
+
             val aiguaGuardada = pref.getFloat("AIGUA_GUARDADA", aiguaReduida)
-            val salGuardada = pref.getFloat("SAL_GUARDADA", aiguaReduida)
-            val massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", aiguaReduida)
+            val salGuardada = pref.getFloat("SAL_GUARDADA", salReduida)
+            val massaMareGuardada = pref.getFloat("MASSA_MARE_GUARDADA", massaMareReduida)
             val perdutGuardada = pref.getFloat("PERDUT_GUARDADA", perdutReduida)
-            val farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", aiguaReduida)
-            val aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaReduida)
+            val farinaMassaMareGuardada = pref.getFloat("FARINA_MASSA_MARE_GUARDADA", farinaMassaMareReduida)
+            val aiguaMassaMareGuardada = pref.getFloat("AIGUA_MASSA_MARE_GUARDADA", aiguaMassaMareReduida)
 
 
             val tantPerCentMassaMare = massaMareGuardada

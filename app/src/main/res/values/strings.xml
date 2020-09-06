@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Massa mare</string>
+    <string name="app_name">Calculadora de pa</string>
     <string name="quantitat_grams">Quants grams de pa vols?</string>
     <string name="calcular">Calcular!</string>
     <string name="titolRecepta">RECEPTA:</string>
@@ -13,5 +13,10 @@
     <string name="aigua_a_la_massa_mare">Aigua a la massa mare:</string>
     <string name="guardar">Guardar</string>
     <string name="g">g</string>
+    <string name="massa_mare">Massa mare</string>
+    <string name="poolish">Poolish</string>
     <string name="perdua">Pèrdua:</string>
+    <string name="preferment_title">Preferment:</string>
+    <string name="preferment">Preferment</string>
+    <string name="TitolPreferment">PREFERMENT:</string>
 </resources>
