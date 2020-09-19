@@ -2,6 +2,7 @@ package com.example.massamare
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -160,5 +161,12 @@ class PoolishMainActivity : AppCompatActivity() {
             original.setText(nouPes.toString())
             calculate()
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        val newOverride = Configuration(newBase?.resources?.configuration)
+        newOverride.fontScale = 1.0f
+        applyOverrideConfiguration(newOverride)
     }
 }

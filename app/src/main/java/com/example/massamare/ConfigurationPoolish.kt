@@ -2,6 +2,7 @@ package com.example.massamare
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -87,5 +88,12 @@ class ConfigurationPoolish : AppCompatActivity() {
         farinaMassaMareConfig.setText("66")
         aiguaMassaMareConfig.setText("33")
         onSave(button2)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        val newOverride = Configuration(newBase?.resources?.configuration)
+        newOverride.fontScale = 1.0f
+        applyOverrideConfiguration(newOverride)
     }
 }
