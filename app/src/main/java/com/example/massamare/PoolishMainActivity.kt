@@ -110,16 +110,17 @@ class PoolishMainActivity : AppCompatActivity() {
             val poolFarinaNecessariaTotal = Math.round(1 / poolTantPerCentSuma * poolPesReal)
             val poolAiguaNecessariaTotal = Math.round(poolFarinaNecessariaTotal * poolTantPerCentAigua)
             val poolSalNecessariaTotal = Math.round(poolFarinaNecessariaTotal * poolTantPerCentSal)
-            val poolMassaMareNecessariaTotal = Math.round(poolTantPerCentMassaMare)
-            val poolFarinaDinsMassaMare = Math.round(poolMassaMareNecessariaTotal * poolTantPerCentFarinaMassaMare)
-            val poolAiguaDinsMassaMare = Math.round(poolMassaMareNecessariaTotal * poolTantPerCentAiguaMassaMare)
+            val poolMassaMareNecessariaTotal = poolTantPerCentFarinaMassaMare + poolTantPerCentAiguaMassaMare
+            val poolUnitari = poolTantPerCentMassaMare /poolMassaMareNecessariaTotal
+            val poolFarinaDinsMassaMare = Math.round(poolUnitari * poolTantPerCentFarinaMassaMare)
+            val poolAiguaDinsMassaMare = Math.round(poolUnitari * poolTantPerCentAiguaMassaMare)
 
             val poolFarinaFinal = poolFarinaNecessariaTotal - poolFarinaDinsMassaMare
             val poolAiguaFinal = poolAiguaNecessariaTotal - poolAiguaDinsMassaMare
 
             farinaOutput.text = poolFarinaFinal.toString()
             aiguaOutput.text = poolAiguaFinal.toString()
-            massaMareOutput.text = poolMassaMareNecessariaTotal.toString()
+            massaMareOutput.text = poolMassaMareGuardada.toString()
             salOutput.text = poolSalNecessariaTotal.toString()
             prefermentFarinaOutput.text = poolFarinaDinsMassaMare.toString()
             prefermentAiguaOutput.text = poolAiguaDinsMassaMare.toString()

@@ -85,8 +85,8 @@ class ConfigurationPoolish : AppCompatActivity() {
 
     }
     fun setBaseValue(view: View) {
-        farinaMassaMareConfig.setText("66")
-        aiguaMassaMareConfig.setText("33")
+        farinaMassaMareConfig.setText("100")
+        aiguaMassaMareConfig.setText("50")
         onSave(button2)
     }
 
