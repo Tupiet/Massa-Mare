@@ -31,7 +31,7 @@ class PoolishMainActivity : AppCompatActivity() {
         val prefermentAiguaOutput: TextView = findViewById(R.id.prefermentAiguaOutput)
 
         val pref = getPreferences(Context.MODE_PRIVATE)
-        val pes = pref.getInt("POOLISH_PES", 0)
+        val pes = pref.getInt("POOLISH_PES", 500)
         textView.setText(pes.toString())
 
         fun calculate() {
@@ -51,12 +51,12 @@ class PoolishMainActivity : AppCompatActivity() {
             var poolSalRebuda = 2F
             var poolMassaMareRebuda = 100F
             var poolPerdutRebut = 17F
-            var poolFarinaMassaMareRebuda = 50F
-            var poolAiguaMassaMareRebuda = 50F
+            var poolFarinaMassaMareRebuda = 100F
+            var poolAiguaMassaMareRebuda = 100F
 
             var poolAiguaReduida = poolAiguaRebuda / 100
             var poolSalReduida = poolSalRebuda / 100
-            var poolMassaMareReduida = poolMassaMareRebuda / 100
+            var poolMassaMareReduida = poolMassaMareRebuda
             var poolPerdutReduida = 1 - poolPerdutRebut / 100
             var poolFarinaMassaMareReduida = poolFarinaMassaMareRebuda / 100
             var poolAiguaMassaMareReduida = poolAiguaMassaMareRebuda / 100
@@ -120,7 +120,7 @@ class PoolishMainActivity : AppCompatActivity() {
 
             farinaOutput.text = poolFarinaFinal.toString()
             aiguaOutput.text = poolAiguaFinal.toString()
-            massaMareOutput.text = poolMassaMareGuardada.toString()
+            massaMareOutput.text = poolMassaMareGuardada.toInt().toString()
             salOutput.text = poolSalNecessariaTotal.toString()
             prefermentFarinaOutput.text = poolFarinaDinsMassaMare.toString()
             prefermentAiguaOutput.text = poolAiguaDinsMassaMare.toString()

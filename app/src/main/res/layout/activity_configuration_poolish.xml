@@ -126,8 +126,8 @@
                 android:inputType="number"
                 android:textAlignment="textEnd"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView19"
-                app:layout_constraintTop_toBottomOf="@+id/prefermentConfig" />
+                app:layout_constraintTop_toBottomOf="@+id/prefermentConfig"
+                tools:layout_editor_absoluteX="351dp" />
 
             <EditText
                 android:id="@+id/aiguaMassaMareConfig"
@@ -138,8 +138,8 @@
                 android:inputType="number"
                 android:textAlignment="textEnd"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/farinaMassaMareConfig" />
+                app:layout_constraintTop_toBottomOf="@+id/farinaMassaMareConfig"
+                tools:layout_editor_absoluteX="351dp" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -262,28 +262,6 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
-                android:layout_marginEnd="15dp"
-                android:text="%"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="15dp"
-                android:text="%"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
