@@ -5,8 +5,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.aleix.tupi_library.TupiLibrary
 import kotlinx.android.synthetic.main.activity_configuration.aiguaConfig
 import kotlinx.android.synthetic.main.activity_configuration.aiguaMassaMareConfig
 import kotlinx.android.synthetic.main.activity_configuration.farinaMassaMareConfig
@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_configuration.salConfig
 import kotlinx.android.synthetic.main.activity_configuration_poolish.*
 
 class ConfigurationPoolish : AppCompatActivity() {
+
+    val tupiLibrary = TupiLibrary()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +46,7 @@ class ConfigurationPoolish : AppCompatActivity() {
         if (aiguaConfig.text.toString() == "" || salConfig.text.toString() == "" ||
             prefermentConfig.text.toString() == "" || farinaMassaMareConfig.text.toString() == "" ||
             aiguaMassaMareConfig.text.toString() == "" || perduaConfig.text.toString() == "") {
-            val toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
-            toast.show()
+            tupiLibrary.toast(this, "Has d'introduïr un valor correcte!")
         } else {
             val poolPercentatgeAigua = aiguaConfig.text.toString().toFloat()
             val poolPercentatgeSal = salConfig.text.toString().toFloat()
@@ -70,8 +71,7 @@ class ConfigurationPoolish : AppCompatActivity() {
             intent.putExtra("POOLISH_percentatgeFarinaMassaMare", poolPercentatgeFarinaMassaMare)
             intent.putExtra("POOLISH_percentatgeAiguaMassaMare", poolPercentatgeAiguaMassaMare)
             intent.putExtra("POOLISH_intent", true)
-            var toast = Toast.makeText(this, "Guardat!", Toast.LENGTH_SHORT)
-            toast.show()
+            tupiLibrary.toast(this, "Guardat!")
             startActivity(intent)
             finish()
         }
