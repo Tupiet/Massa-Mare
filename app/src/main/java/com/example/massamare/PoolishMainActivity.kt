@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.aleix.tupi_library.TupiLibrary
 import kotlinx.android.synthetic.main.activity_main.*
 
 class PoolishMainActivity : AppCompatActivity() {
+
+    val tupiLibrary = TupiLibrary()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +31,14 @@ class PoolishMainActivity : AppCompatActivity() {
         val prefermentAiguaOutput: TextView = findViewById(R.id.prefermentAiguaOutput)
 
         val pref = getPreferences(Context.MODE_PRIVATE)
-        val pes = pref.getInt("POOLISH_PES", 0)
+        val pes = pref.getInt("POOLISH_PES", 500)
         textView.setText(pes.toString())
 
         fun calculate() {
             var poolPesDesitjat = 0
             if (input.text.toString() == "") {
                 poolPesDesitjat = 0
-                var toast = Toast.makeText(this, "Has d'introduïr un valor correcte!", Toast.LENGTH_SHORT)
-                toast.show()
+                tupiLibrary.toast(this, "Has d'introduïr un valor correcte!")
 
             } else {
                 poolPesDesitjat = Integer.parseInt(input.text.toString())
@@ -51,27 +50,39 @@ class PoolishMainActivity : AppCompatActivity() {
             var poolSalRebuda = 2F
             var poolMassaMareRebuda = 100F
             var poolPerdutRebut = 17F
-            var poolFarinaMassaMareRebuda = 50F
-            var poolAiguaMassaMareRebuda = 50F
+            var poolFarinaMassaMareRebuda = 100F
+            var poolAiguaMassaMareRebuda = intent.getFloatExtra("POOLISH_WATER", 100F)
+
+            tupiLibrary.alert(this, "1", poolMassaMareRebuda.toString())
+
+            var poolMainBool = intent.getBooleanExtra("POOLISH_UPDATED", false)
+
 
             var poolAiguaReduida = poolAiguaRebuda / 100
             var poolSalReduida = poolSalRebuda / 100
-            var poolMassaMareReduida = poolMassaMareRebuda / 100
+            var poolMassaMareReduida = poolMassaMareRebuda
             var poolPerdutReduida = 1 - poolPerdutRebut / 100
             var poolFarinaMassaMareReduida = poolFarinaMassaMareRebuda / 100
             var poolAiguaMassaMareReduida = poolAiguaMassaMareRebuda / 100
-            val poolIntent = intent.getBooleanExtra("POOLISH_intent", false)
+
+            tupiLibrary.alert(this, "2", poolMassaMareReduida.toString())
+
+            val poolIntent = intent.getBooleanExtra("POOLISH_INTENT", false)
 
             val editor = pref.edit()
             editor.putInt("POOLISH_PES", poolPesDesitjat)
+
+            if (poolMainBool == true) {
+                editor.putFloat("POOLISH_AIGUA_MASSA_MARE_GUARDADA", poolAiguaMassaMareReduida)
+            }
 
             if (poolIntent == true) {
                 poolAiguaRebuda = intent.getFloatExtra("POOLISH_percentatgeAigua", poolAiguaRebuda)
                 poolSalRebuda = intent.getFloatExtra("POOLISH_percentatgeSal", poolSalRebuda)
                 poolMassaMareRebuda = intent.getFloatExtra("POOLISH_quantitatPoolish", poolMassaMareRebuda)
                 poolPerdutRebut = intent.getFloatExtra("POOLISH_percentatgePerdua", poolPerdutRebut)
-                poolFarinaMassaMareRebuda = intent.getFloatExtra("POOLISH_percentatgeFarinaMassaMare", poolFarinaMassaMareRebuda)
-                poolAiguaMassaMareRebuda = intent.getFloatExtra("POOLISH_percentatgeAiguaMassaMare", poolAiguaMassaMareRebuda)
+
+                tupiLibrary.alert(this, "3", poolMassaMareRebuda.toString())
 
                 poolAiguaReduida = poolAiguaRebuda / 100
                 poolSalReduida = poolSalRebuda / 100
@@ -85,7 +96,6 @@ class PoolishMainActivity : AppCompatActivity() {
                 editor.putFloat("POOLISH_POOLISH_GUARDADA", poolMassaMareReduida)
                 editor.putFloat("POOLISH_PERDUT_GUARDADA", poolPerdutReduida)
                 editor.putFloat("POOLISH_FARINA_MASSA_MARE_GUARDADA", poolFarinaMassaMareReduida)
-                editor.putFloat("POOLISH_AIGUA_MASSA_MARE_GUARDADA", poolAiguaMassaMareReduida)
             }
             editor.commit()
             // endregion
@@ -97,6 +107,7 @@ class PoolishMainActivity : AppCompatActivity() {
             val poolFarinaMassaMareGuardada = pref.getFloat("POOLISH_FARINA_MASSA_MARE_GUARDADA", poolFarinaMassaMareReduida)
             val poolAiguaMassaMareGuardada = pref.getFloat("POOLISH_AIGUA_MASSA_MARE_GUARDADA", poolAiguaMassaMareReduida)
 
+            tupiLibrary.alert(this, "4", poolMassaMareGuardada.toString())
 
             val poolTantPerCentMassaMare = poolMassaMareGuardada
             val poolTantPerCentAigua = poolAiguaGuardada
@@ -110,16 +121,21 @@ class PoolishMainActivity : AppCompatActivity() {
             val poolFarinaNecessariaTotal = Math.round(1 / poolTantPerCentSuma * poolPesReal)
             val poolAiguaNecessariaTotal = Math.round(poolFarinaNecessariaTotal * poolTantPerCentAigua)
             val poolSalNecessariaTotal = Math.round(poolFarinaNecessariaTotal * poolTantPerCentSal)
-            val poolMassaMareNecessariaTotal = Math.round(poolTantPerCentMassaMare)
-            val poolFarinaDinsMassaMare = Math.round(poolMassaMareNecessariaTotal * poolTantPerCentFarinaMassaMare)
-            val poolAiguaDinsMassaMare = Math.round(poolMassaMareNecessariaTotal * poolTantPerCentAiguaMassaMare)
+            val poolMassaMareNecessariaTotal = poolTantPerCentFarinaMassaMare + poolTantPerCentAiguaMassaMare
+            val poolUnitari = poolTantPerCentMassaMare / poolMassaMareNecessariaTotal
+            val poolFarinaDinsMassaMare = Math.round(poolUnitari * poolTantPerCentFarinaMassaMare)
+            val poolAiguaDinsMassaMare = Math.round(poolUnitari * poolTantPerCentAiguaMassaMare)
+
+            tupiLibrary.alert(this, "5", poolMassaMareNecessariaTotal.toString())
 
             val poolFarinaFinal = poolFarinaNecessariaTotal - poolFarinaDinsMassaMare
             val poolAiguaFinal = poolAiguaNecessariaTotal - poolAiguaDinsMassaMare
 
+            tupiLibrary.alert(this, "6", poolFarinaFinal.toString())
+
             farinaOutput.text = poolFarinaFinal.toString()
             aiguaOutput.text = poolAiguaFinal.toString()
-            massaMareOutput.text = poolMassaMareNecessariaTotal.toString()
+            massaMareOutput.text = poolMassaMareGuardada.toString()
             salOutput.text = poolSalNecessariaTotal.toString()
             prefermentFarinaOutput.text = poolFarinaDinsMassaMare.toString()
             prefermentAiguaOutput.text = poolAiguaDinsMassaMare.toString()
@@ -130,13 +146,8 @@ class PoolishMainActivity : AppCompatActivity() {
         calculate()
 
 
-        fun View.hideKeyboard() {
-            val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputManager.hideSoftInputFromWindow(windowToken, 0)
-        }
-
         button.setOnClickListener {
-            it.hideKeyboard()
+            tupiLibrary.hideKeyboard(it)
             calculate()
         }
 

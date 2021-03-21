@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.aleix.tupi_library.TupiLibrary
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
@@ -17,6 +18,8 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+        val tupiLibrary = TupiLibrary()
 
         // This region is what makes possible the Remote Config
         // Remote Config (Firebase) is used to detect updates
@@ -70,6 +73,11 @@ class StartActivity : AppCompatActivity() {
         }
         startPoolish.setOnClickListener {
             val intent = Intent(this, PoolishMainActivity::class.java)
+            startActivity(intent)
+        }
+
+        betaButton.setOnClickListener {
+            val intent = Intent(this, MainPreferment::class.java)
             startActivity(intent)
         }
 

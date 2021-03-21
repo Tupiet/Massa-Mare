@@ -36,6 +36,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-config-ktx:19.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
+
+    implementation 'tk.aleix:TupiLibrary:1.1.5'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
